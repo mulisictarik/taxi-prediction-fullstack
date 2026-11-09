@@ -1,39 +1,39 @@
 # Taxi Price Predictor
 
-Machine learning system for predicting taxi prices based on distance, time, weather, and other factors.
+A machine learning app that predicts the price of a taxi trip from distance, time of day, weather, traffic and other factors. The model is served through a FastAPI backend and used from a Streamlit frontend.
 
-## Setup
+<img width="1481" height="787" alt="Taxi Price Predictor" src="https://github.com/user-attachments/assets/4f8dd3a8-c513-4c00-89e4-98a9c2cf12a9" />
 
-1. Install dependencies:
+## How it works
 
+1. **Data preparation:** cleaned and explored the taxi trip dataset (`model_development/eda.ipynb`)
+2. **Model training:** compared regression models and picked a Random Forest, evaluated with MAE and RMSE (`model_development/model_dev.ipynb`)
+3. **API:** FastAPI serves predictions from the saved model and scaler, with input validation through Pydantic
+4. **Frontend:** Streamlit app where you fill in trip details and get a price back
+
+## Tech stack
+
+Python · scikit-learn · Pandas · FastAPI · Pydantic · Streamlit · joblib
+
+## Run it
+
+```bash
 pip install -r requirements.txt
 
-### Run the PPI
-
+# Start the API (http://localhost:8000)
 python -m uvicorn taxipred.backend.api:app --reload --app-dir src
 
-API runs on `http://localhost:8000`
-
-### Run the frontend
-
+# Start the frontend (http://localhost:8501)
 streamlit run src/taxipred/frontend/app.py
-
-Frontend runs on `http://localhost:8501`
+```
 
 ## Project structure
 
-- `model_development/` - Jupyter notebooks for data exploration and model training
-- `backend/` - FastAPI server with prediction endpoint
-- `frontend/` - Streamlit web app for user interface
-- `data/` - Dataset and trained model files
-- `utils/` - Configuration and constants
-
-## How It Works
-
-1. **Data Preparation** - Cleaned and explored taxi dataset
-2. **Model Training** - Trained Random Forest model on historical prices
-3. **API** - Serves predictions via REST endpoint
-4. **Web UI** - User-friendly interface to get price predictions
-
-<img width="1481" height="787" alt="Skärmbild 2026-01-24 162023" src="https://github.com/user-attachments/assets/4f8dd3a8-c513-4c00-89e4-98a9c2cf12a9" />
-
+```text
+src/taxipred/
+├── backend/            # FastAPI app and data processing
+├── frontend/           # Streamlit app
+├── model_development/  # EDA and model training notebooks
+├── data/               # Dataset, trained model and scaler
+└── utils/              # Paths and constants
+```
